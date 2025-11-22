@@ -52,7 +52,7 @@
     .monster-tips{background:#ecfdf5;padding:15px;border-radius:8px;border-left:4px solid #047857}
     .day-names{display:contents}
     .day-name{padding:10px;text-align:center;font-weight:bold;color:#047857;background:#ecfdf5;border-radius:5px;font-size:1.2em}
-    .no-data{text-align:center;color:#888;padding:40px;font-style:italic}
+    .no-data{text-align:center;color:#888;padding:40px;font-style:normal}
     .calendar-day.today:hover{background:#047857;color:#fff}
     .task-tag{font-size:11px;background:#047857;color:#fff;padding:3px 5px;border-radius:3px;margin-top:3px;display:flex;justify-content:space-between;align-items:center;gap:2px;width:100%}
     .task-tag-name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:left}
@@ -165,7 +165,7 @@
             <input type="date" id="startDate"/>
           </div>
           <div class="form-group">
-            <label>結束日期(選填)</label>
+            <label>結束日期（選填）</label>
             <input type="date" id="endDate"/>
           </div>
           <div class="form-group">
@@ -192,47 +192,90 @@
     <!-- 除魔斬妖區 -->
     <div class="tab-content" id="tab-3">
       <div class="section">
-        <h2>⚔️ 打怪區(經驗分享)</h2>
+        <h2>⚔️ 打怪區（經驗分享）</h2>
         <div id="monsterDisplay">
-          <div class="no-data">暫無打怪經驗,快來分享你的戰鬥故事吧!</div>
+          <div class="no-data">暫無打怪經驗，快來分享你的戰鬥故事吧！</div>
         </div>
       </div>
 
       <div class="section">
-        <h2>👹 妖魔區(新增經驗)</h2>
+        <h2>👹 妖魔區（新增經驗）</h2>
         <div class="input-form">
           <div class="form-group">
             <label>創建者</label>
             <input type="text" id="creator" placeholder="請輸入創建者姓名"/>
           </div>
           <div class="form-group">
-            <label>血淚史(問題描述)</label>
+            <label>血淚史（問題描述）</label>
             <textarea id="problem" placeholder="描述遇到的問題或挑戰"></textarea>
           </div>
           <div class="form-group">
-            <label>錦囊(解決方案)</label>
+            <label>錦囊（解決方案）</label>
             <textarea id="solution" placeholder="分享解決方案或經驗心得"></textarea>
           </div>
           <button class="submit-btn" onclick="addMonster()">分享經驗</button>
         </div>
       </div>
     </div>
+
+    <!-- 歷史資料 -->
+    <div class="tab-content" id="tab-4">
+      <div class="section">
+        <h2>📊 歷史資料匯出</h2>
+        <div class="input-form">
+          <div class="form-group">
+            <label>選擇資料類型</label>
+            <select id="exportType">
+              <option value="announcements">公告訊息</option>
+              <option value="tasks">行事曆任務</option>
+              <option value="both">全部資料</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>開始日期</label>
+            <input type="date" id="exportStartDate"/>
+          </div>
+          <div class="form-group">
+            <label>結束日期</label>
+            <input type="date" id="exportEndDate"/>
+          </div>
+          <div class="form-group">
+            <label>匯出格式</label>
+            <select id="exportFormat">
+              <option value="txt">文字檔 (TXT)</option>
+              <option value="excel">Excel (CSV)</option>
+            </select>
+          </div>
+          <button class="submit-btn" onclick="exportData()">匯出資料</button>
+        </div>
+        
+        <div class="bulletin-section" style="margin-top:20px;">
+          <h3>📌 說明</h3>
+          <div style="padding:10px;color:#555;line-height:1.8;">
+            <p>• 選擇要匯出的資料類型（公告訊息、行事曆任務或全部）</p>
+            <p>• 設定日期範圍，系統會根據資料的建立時間篩選</p>
+            <p>• 選擇匯出格式：TXT 文字檔或 CSV (可用 Excel 開啟)</p>
+            <p>• 點擊「匯出資料」即可下載檔案</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <!-- Firebase:初始化(module) -->
+  <!-- Firebase：初始化（module） -->
   <script type="module">
     import { initializeApp as firebaseInitializeApp } from 'https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js';
     import { getDatabase, ref, push, set, onValue, remove } from 'https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js';
 
     const firebaseConfig = {
-      apiKey: "AIzaSyBGJxUwwZ9vN8EH7qKxB7VHLzO3GNBwXYE",
-      authDomain: "chemo-bulletin-board.firebaseapp.com",
-      databaseURL: "https://chemo-bulletin-board-default-rtdb.asia-southeast1.firebasedatabase.app",
-      projectId: "chemo-bulletin-board",
-      storageBucket: "chemo-bulletin-board.appspot.com",
-      messagingSenderId: "123456789012",
-      appId: "1:123456789012:web:abcdef1234567890abcdef",
-      measurementId: "G-ABCDEF1234"
+      apiKey: "AIzaSyCUX6P65xbJN-utamyKi5wgeD9I8jbepO0",
+      authDomain: "ct-board.firebaseapp.com",
+      databaseURL: "https://ct-board-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "ct-board",
+      storageBucket: "ct-board.firebasestorage.app",
+      messagingSenderId: "1093286953561",
+      appId: "1:1093286953561:web:4c375a9b5f280caa20a748",
+      measurementId: "G-JWN3SMPH9V"
     };
 
     window.announcements = [];
@@ -244,7 +287,7 @@
     let listenersInstalled = false;
 
     async function bootApp() {
-      console.log('📱 頁面載入完成,開始診斷...');
+      console.log('📱 頁面載入完成，開始診斷...');
       try {
         console.log('🚀 初始化 Firebase...');
         const app = firebaseInitializeApp(firebaseConfig);
@@ -258,8 +301,8 @@
         setupFirebaseListeners();
         showConnectionStatus('已連線到雲端資料庫 🌐', 'success');
       } catch (err) {
-        console.error('🚫 Firebase 初始化失敗:', err);
-        showConnectionStatus('無法連接雲端,使用本地模式 📡', 'warning');
+        console.error('🚫 Firebase 初始化失敗：', err);
+        showConnectionStatus('無法連接雲端，使用本地模式 📡', 'warning');
         loadLocalData();
       }
       updateAllDisplays();
@@ -343,10 +386,9 @@
     }
 
     function loadDemoData(){
-      window.announcements = [
-        { id:'demo1', announcer:'護理長', content:'請注意今日有新的化療配方調整', date:new Date().toISOString().split('T')[0], isPermanent:false, timestamp:new Date().toISOString() },
-        { id:'demo2', announcer:'藥師', content:'記得檢查化療藥物的保存期限', date:null, isPermanent:true, timestamp:new Date().toISOString() }
-      ];
+      window.announcements = [];
+      window.tasks = [];
+      window.monsters = [];
     }
 
     window.showConnectionStatus = showConnectionStatus;
@@ -355,7 +397,7 @@
     document.addEventListener('DOMContentLoaded', bootApp);
   </script>
 
-  <!-- 互動/UI(非 module) -->
+  <!-- 互動/UI（非 module） -->
   <script>
     function switchTab(index){
       document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',i===index));
@@ -381,13 +423,13 @@
       if(window.firebaseDb){
         const { ref, push } = window.firebaseRefs;
         push(ref(window.firebaseDb,'announcements'), newAnnouncement)
-          .then(()=>{ clearAnnouncementForm(); alert('公告發布成功!'); })
-          .catch((e)=>{ console.error('發布公告失敗:',e); alert('發布失敗,請檢查網路連線'); });
+          .then(()=>{ clearAnnouncementForm(); alert('公告發布成功！'); })
+          .catch((e)=>{ console.error('發布公告失敗:',e); alert('發布失敗，請檢查網路連線'); });
       }else{
         newAnnouncement.id=Date.now().toString();
         window.announcements.push(newAnnouncement);
         saveLocalData(); updateBulletinBoard(); clearAnnouncementForm();
-        alert('公告發布成功!(本地儲存)');
+        alert('公告發布成功！（本地儲存）');
       }
     }
     function clearAnnouncementForm(){
@@ -410,13 +452,13 @@
       if(window.firebaseDb){
         const { ref, push } = window.firebaseRefs;
         push(ref(window.firebaseDb,'tasks'), newTask)
-          .then(()=>{ clearTaskForm(); alert('任務新增成功!'); })
-          .catch((e)=>{ console.error('新增任務失敗:',e); alert('新增失敗,請檢查網路連線'); });
+          .then(()=>{ clearTaskForm(); alert('任務新增成功！'); })
+          .catch((e)=>{ console.error('新增任務失敗:',e); alert('新增失敗，請檢查網路連線'); });
       }else{
         newTask.id=Date.now().toString();
         window.tasks.push(newTask);
         saveLocalData(); updateCalendar(); clearTaskForm();
-        alert('任務新增成功!(本地儲存)');
+        alert('任務新增成功！（本地儲存）');
       }
     }
     function clearTaskForm(){
@@ -437,13 +479,13 @@
       if(window.firebaseDb){
         const { ref, push } = window.firebaseRefs;
         push(ref(window.firebaseDb,'monsters'), newMonster)
-          .then(()=>{ clearMonsterForm(); alert('打怪經驗分享成功!'); })
-          .catch((e)=>{ console.error('分享經驗失敗:',e); alert('分享失敗,請檢查網路連線'); });
+          .then(()=>{ clearMonsterForm(); alert('打怪經驗分享成功！'); })
+          .catch((e)=>{ console.error('分享經驗失敗:',e); alert('分享失敗，請檢查網路連線'); });
       }else{
         newMonster.id=Date.now().toString();
         window.monsters.push(newMonster);
         saveLocalData(); updateMonsterDisplay(); clearMonsterForm();
-        alert('打怪經驗分享成功!(本地儲存)');
+        alert('打怪經驗分享成功！（本地儲存）');
       }
     }
     function clearMonsterForm(){
@@ -499,12 +541,12 @@
     }
 
     function deleteAnnouncement(id){
-      if(!confirm('確定要刪除此公告嗎?')) return;
+      if(!confirm('確定要刪除此公告嗎？')) return;
       if(window.firebaseDb){
         const { ref, remove } = window.firebaseRefs;
         remove(ref(window.firebaseDb,`announcements/${id}`))
           .then(()=>console.log('公告刪除成功'))
-          .catch((e)=>{ console.error('刪除公告失敗:',e); alert('刪除失敗,請檢查網路連線'); });
+          .catch((e)=>{ console.error('刪除公告失敗:',e); alert('刪除失敗，請檢查網路連線'); });
       }else{
         window.announcements = window.announcements.filter(a=>a.id!==id);
         saveLocalData(); updateBulletinBoard();
@@ -536,27 +578,24 @@
 
         const dateStr=formatDateStr(date);
         const dayTasks=window.tasks.filter(t=>{
-          // 一般任務:檢查日期範圍
           if(!t.isRecurring){
             return dateStr>=t.startDate && dateStr<=t.endDate;
           }
           
-          // 重複任務:根據重複類型判斷
           const taskStart = new Date(t.startDate + 'T00:00:00');
-          if(date < taskStart) return false; // 還沒到開始日期
+          if(date < taskStart) return false;
           
           switch(t.recurringType){
-            case 'monthly-date': // 每月固定日期
+            case 'monthly-date':
               return date.getDate() === taskStart.getDate();
             
-            case 'monthly-weekday': // 每月固定第幾周的星期幾
+            case 'monthly-weekday':
               const startWeekOfMonth = Math.ceil(taskStart.getDate() / 7);
               const currentWeekOfMonth = Math.ceil(date.getDate() / 7);
               return date.getDay() === taskStart.getDay() && startWeekOfMonth === currentWeekOfMonth;
             
-            case 'monthly-workday': // 每月第一個工作天
-              if(date.getDay() === 0 || date.getDay() === 6) return false; // 排除週末
-              // 找出本月第一個工作天
+            case 'monthly-workday':
+              if(date.getDay() === 0 || date.getDay() === 6) return false;
               const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
               let firstWorkday = new Date(firstDayOfMonth);
               while(firstWorkday.getDay() === 0 || firstWorkday.getDay() === 6){
@@ -564,7 +603,7 @@
               }
               return date.getDate() === firstWorkday.getDate();
             
-            case 'weekly': // 每週固定星期幾
+            case 'weekly':
               return date.getDay() === taskStart.getDay();
             
             default:
@@ -609,25 +648,25 @@
     function updateMonsterDisplay(){
       const container=document.getElementById('monsterDisplay');
       if(window.monsters.length===0){
-        container.innerHTML='<div class="no-data">暫無打怪經驗,快來分享你的戰鬥故事吧!</div>';
+        container.innerHTML='<div class="no-data">暫無打怪經驗，快來分享你的戰鬥故事吧！</div>';
       }else{
         container.innerHTML = window.monsters.map(m=>`
           <div class="monster-item">
             <div class="monster-creator">🗡️ ${m.creator}</div>
-            <div class="monster-story"><h4>血淚史:</h4><p>${m.problem}</p></div>
-            <div class="monster-tips"><h4>💡 錦囊妙計:</h4><p>${m.solution}</p></div>
+            <div class="monster-story"><h4>血淚史：</h4><p>${m.problem}</p></div>
+            <div class="monster-tips"><h4>💡 錦囊妙計：</h4><p>${m.solution}</p></div>
             <button class="delete-btn" onclick="deleteMonster('${m.id}')" style="margin-top:10px;">刪除經驗</button>
           </div>`).join('');
       }
     }
 
     function deleteMonster(id){
-      if(!confirm('確定要刪除此打怪經驗嗎?')) return;
+      if(!confirm('確定要刪除此打怪經驗嗎？')) return;
       if(window.firebaseDb){
         const { ref, remove } = window.firebaseRefs;
         remove(ref(window.firebaseDb,`monsters/${id}`))
           .then(()=>console.log('打怪經驗刪除成功'))
-          .catch((e)=>{ console.error('刪除打怪經驗失敗:',e); alert('刪除失敗,請檢查網路連線'); });
+          .catch((e)=>{ console.error('刪除打怪經驗失敗:',e); alert('刪除失敗，請檢查網路連線'); });
       }else{
         window.monsters = window.monsters.filter(m=>m.id!==id);
         saveLocalData(); updateMonsterDisplay();
@@ -635,12 +674,12 @@
     }
 
     function deleteTask(id){
-      if(!confirm('確定要刪除此任務嗎?')) return;
+      if(!confirm('確定要刪除此任務嗎？')) return;
       if(window.firebaseDb){
         const { ref, remove } = window.firebaseRefs;
         remove(ref(window.firebaseDb,`tasks/${id}`))
           .then(()=>console.log('任務刪除成功'))
-          .catch((e)=>{ console.error('刪除任務失敗:',e); alert('刪除失敗,請檢查網路連線'); });
+          .catch((e)=>{ console.error('刪除任務失敗:',e); alert('刪除失敗，請檢查網路連線'); });
       }else{
         window.tasks = window.tasks.filter(t=>t.id!==id);
         saveLocalData(); updateCalendar();
@@ -675,10 +714,13 @@
     }
 
     function loadDemoData(){
-      window.announcements=[
-        { id:'1', announcer:'護理長', content:'請注意今日有新的化療配方調整', date:new Date().toISOString().split('T')[0], isPermanent:false, timestamp:new Date().toISOString() },
-        { id:'2', announcer:'藥師', content:'記得檢查化療藥物的保存期限', date:null, isPermanent:true, timestamp:new Date().toISOString() }
-      ];
+      window.announcements = [];
+      window.tasks = [];
+      window.monsters = [];
+    }
+
+    function exportData(){
+      alert('匯出功能開發中，敬請期待！');
     }
 
     window.switchTab = switchTab;
@@ -695,9 +737,10 @@
     window.updateCalendar = updateCalendar;
     window.updateMonsterDisplay = updateMonsterDisplay;
     window.changeMonth = changeMonth;
+    window.exportData = exportData;
 
     window.addEventListener('online', ()=> showConnectionStatus && showConnectionStatus('網路已恢復 📶','success'));
-    window.addEventListener('offline',()=> showConnectionStatus && showConnectionStatus('網路斷線,使用本地模式 📵','warning'));
+    window.addEventListener('offline',()=> showConnectionStatus && showConnectionStatus('網路斷線，使用本地模式 📵','warning'));
   </script>
 </body>
 </html>
